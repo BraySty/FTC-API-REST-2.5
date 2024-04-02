@@ -1,4 +1,4 @@
-package com.ftc.jwt.auth;
+package com.ftc.rest.jwt.auth;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +13,7 @@ public class AuthController {
 	
 	@PostMapping(value = "login")
 	public String login() {
+		System.out.println("hi2");
 		return "Login from public endpoint";
 	}
 	

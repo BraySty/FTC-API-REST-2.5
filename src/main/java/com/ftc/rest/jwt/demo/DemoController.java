@@ -1,4 +1,4 @@
-package com.ftc.jwt.demo;
+package com.ftc.rest.jwt.demo;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
