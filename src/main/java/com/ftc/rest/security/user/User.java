@@ -7,6 +7,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,14 +24,21 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"userName"})})
 public class User implements UserDetails{
 
+    @Id
+    @GeneratedValue
     private int id;
-    private String userName;
+    @Column(nullable = false)
+    String userName;
+    @Column(nullable = false)
     private String lastName;
     private String firstName;
     private String country;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
@@ -34,10 +49,6 @@ public class User implements UserDetails{
     @Override
     public String getUsername() {
         return this.userName;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     @Override
