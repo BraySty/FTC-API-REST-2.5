@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,32 +33,30 @@ public class User implements UserDetails{
     @GeneratedValue
     private int id;
     @Column(nullable = false)
-    String userName;
+    private String userName;
     @Column(nullable = false)
-    private String lastName;
-    private String firstName;
-    private String country;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String country;
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+      return List.of(new SimpleGrantedAuthority((role.name())));
     }
-
     @Override
     public String getUsername() {
         return this.userName;
     }
-
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+       return true;
     }
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+       return true;
     }
     @Override
     public boolean isCredentialsNonExpired() {

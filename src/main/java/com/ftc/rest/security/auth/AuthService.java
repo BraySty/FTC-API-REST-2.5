@@ -23,6 +23,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     
     public AuthResponse login(LoginRequest request) {
+        System.out.println("\nUsuario: " + request.getUserName() +" Contraseña: " + request.getPassword() + "\n");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
         UserDetails user=userRepository.findByUserName(request.getUserName()).orElseThrow();
         String token=jwtService.getToken(user);
@@ -36,11 +37,11 @@ public class AuthService {
             .userName(request.getUserName())
             .password(passwordEncoder.encode( request.getPassword()))
             .firstName(request.getFirstName())
-            .lastName(request.lastName)
+            .lastName(request.getLastName())
             .country(request.getCountry())
             .role(Role.USER)
             .build();
-
+        System.out.println("\n" + "\n" + user.toString() + "\n" + "\n");
         userRepository.save(user);
 
         return AuthResponse.builder()
